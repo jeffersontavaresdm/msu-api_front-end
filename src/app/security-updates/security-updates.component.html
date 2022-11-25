@@ -1,12 +1,20 @@
 <div>
-  <table mat-table [dataSource]="updates" class="mat-elevation-z8 demo-table">
+  <mat-form-field appearance="outline" style="margin-left: 40%; margin-top: 20px; margin-bottom: 10px; width: 20%">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" [(ngModel)]="search" autocomplete="off" (keyup)="filterData($event)">
+    <button matSuffix mat-icon-button aria-label="Clear" id="mffID" (click)="closeEvent()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-hint align="start">Press enter to search</mat-hint>
+  </mat-form-field>
 
+  <table mat-table [dataSource]="filteredUpdates" class="mat-elevation-z8 demo-table">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> N°</th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="key">
+    <ng-container matColumnDef="key" class="test">
       <th mat-header-cell *matHeaderCellDef> ID</th>
       <td mat-cell *matCellDef="let element"> {{element.key}} </td>
     </ng-container>
@@ -37,7 +45,7 @@
     </ng-container>
 
     <ng-container matColumnDef="cvrfUrl">
-      <th mat-header-cell *matHeaderCellDef> Cvrf Url</th>
+      <th mat-header-cell *matHeaderCellDef> CVRF Url</th>
       <td mat-cell *matCellDef="let element"> {{element.cvrfUrl}} </td>
     </ng-container>
 

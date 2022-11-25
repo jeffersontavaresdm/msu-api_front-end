@@ -8,7 +8,9 @@ import {MicrosoftSecurityUpdatesService} from "../../service/microsoft-security-
   styleUrls: ['./security-updates.component.css']
 })
 export class SecurityUpdatesComponent {
+  @Input() search: string = ''
   @Input() updates: SecurityUpdate[] = []
+  @Input() filteredUpdates: SecurityUpdate[] = []
   displayedColumns: string[] = [
     'id',
     'key',
@@ -23,9 +25,39 @@ export class SecurityUpdatesComponent {
   constructor(private msuService: MicrosoftSecurityUpdatesService) {
   }
 
+  closeEvent() {
+    this.filteredUpdates = this.updates
+    this.search = ''
+  }
+
+  filterData(event: KeyboardEvent) {
+    this.search = (event.target as HTMLInputElement).value;
+
+    if (!this.search) {
+      this.filteredUpdates = this.updates
+      return
+    }
+
+    if (event.code == 'Enter') {
+      this.filteredUpdates = this.updates.filter(update => {
+        return (update.key.toLowerCase().includes(this.search)
+          || update.alias.toLowerCase().includes(this.search)
+          || update.documentTitle.toLowerCase().includes(this.search)
+          || (update.severity != undefined && update.severity.toLowerCase().includes(this.search))
+          || update.initialReleaseDate.toLowerCase().includes(this.search)
+          || update.currentReleaseDate.toLowerCase().includes(this.search)
+          || update.cvrfUrl.toLowerCase().includes(this.search)
+        )
+      })
+    }
+  }
+
   ngOnInit(): void {
-    this.msuService.getUpdates().subscribe(updates => {
-      this.updates = updates
-    })
+    this.msuService
+      .getUpdates()
+      .subscribe(updates => {
+        this.updates = updates;
+        this.filteredUpdates = updates
+      })
   }
 }
