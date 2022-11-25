@@ -9,6 +9,15 @@ import {MicrosoftSecurityUpdatesService} from "../../service/microsoft-security-
 })
 export class SecurityUpdatesComponent {
   @Input() updates: SecurityUpdate[] = []
+  displayedColumns: string[] = [
+    'id',
+    'alias',
+    'documentTitle',
+    'severity',
+    'initialReleaseDate',
+    'currentReleaseDate',
+    'cvrfUrl'
+  ];
 
   constructor(private msuService: MicrosoftSecurityUpdatesService) {
   }

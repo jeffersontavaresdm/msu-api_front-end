@@ -6,6 +6,8 @@ import {RouterLink, RouterOutlet} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {SecurityUpdatesComponent} from './security-updates/security-updates.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import {SecurityUpdatesComponent} from './security-updates/security-updates.comp
     FormsModule,
     RouterOutlet,
     RouterLink,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
