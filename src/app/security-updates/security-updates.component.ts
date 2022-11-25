@@ -11,6 +11,7 @@ export class SecurityUpdatesComponent {
   @Input() updates: SecurityUpdate[] = []
   displayedColumns: string[] = [
     'id',
+    'key',
     'alias',
     'documentTitle',
     'severity',
