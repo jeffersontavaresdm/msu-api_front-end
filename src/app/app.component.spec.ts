@@ -19,7 +19,7 @@ describe('AppComponent', () => {
   it(`should have as title 'msu-api'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('msu-api');
+    expect(app.apiUrl).toEqual('http://localhost:3000/api/v1');
   });
 
   it('should render title', () => {
