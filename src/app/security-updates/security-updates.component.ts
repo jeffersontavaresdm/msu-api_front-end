@@ -31,7 +31,7 @@ export class SecurityUpdatesComponent {
   }
 
   filterData(event: KeyboardEvent) {
-    this.search = (event.target as HTMLInputElement).value;
+    this.search = (event.target as HTMLInputElement).value.toLowerCase();
 
     if (!this.search) {
       this.filteredUpdates = this.updates
