@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SecurityUpdate} from "../../dto/security-update.dto";
 import {MicrosoftSecurityUpdatesService} from "../../service/microsoft-security-updates.service";
 
@@ -7,7 +7,7 @@ import {MicrosoftSecurityUpdatesService} from "../../service/microsoft-security-
   templateUrl: './security-updates.component.html',
   styleUrls: ['./security-updates.component.css']
 })
-export class SecurityUpdatesComponent {
+export class SecurityUpdatesComponent implements OnInit {
   @Input() search: string = ''
   @Input() updates: SecurityUpdate[] = []
   @Input() filteredUpdates: SecurityUpdate[] = []
@@ -22,8 +22,7 @@ export class SecurityUpdatesComponent {
     'cvrfUrl'
   ];
 
-  constructor(private msuService: MicrosoftSecurityUpdatesService) {
-  }
+  constructor(private msuService: MicrosoftSecurityUpdatesService) {}
 
   closeEvent() {
     this.filteredUpdates = this.updates
@@ -31,7 +30,7 @@ export class SecurityUpdatesComponent {
   }
 
   filterData(event: KeyboardEvent) {
-    this.search = (event.target as HTMLInputElement).value.toLowerCase();
+    this.search = (event.target as HTMLInputElement).value;
 
     if (!this.search) {
       this.filteredUpdates = this.updates
@@ -40,13 +39,13 @@ export class SecurityUpdatesComponent {
 
     if (event.code == 'Enter') {
       this.filteredUpdates = this.updates.filter(update => {
-        return (update.key.toLowerCase().includes(this.search)
-          || update.alias.toLowerCase().includes(this.search)
-          || update.documentTitle.toLowerCase().includes(this.search)
-          || (update.severity != undefined && update.severity.toLowerCase().includes(this.search))
-          || update.initialReleaseDate.toLowerCase().includes(this.search)
-          || update.currentReleaseDate.toLowerCase().includes(this.search)
-          || update.cvrfUrl.toLowerCase().includes(this.search)
+        return (update.key.toLowerCase().includes(this.search.toLowerCase())
+          || update.alias.toLowerCase().includes(this.search.toLowerCase())
+          || update.documentTitle.toLowerCase().includes(this.search.toLowerCase())
+          || (update.severity && update.severity.toLowerCase().includes(this.search.toLowerCase()))
+          || update.initialReleaseDate.toLowerCase().includes(this.search.toLowerCase())
+          || update.currentReleaseDate.toLowerCase().includes(this.search.toLowerCase())
+          || update.cvrfUrl.toLowerCase().includes(this.search.toLowerCase())
         )
       })
     }
