@@ -24,7 +24,7 @@ export class SecurityUpdatesComponent implements OnInit {
 
   constructor(private msuService: MicrosoftSecurityUpdatesService) {}
 
-  closeEvent() {
+  reset() {
     this.filteredUpdates = this.updates
     this.search = ''
   }
